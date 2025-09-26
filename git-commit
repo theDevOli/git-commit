@@ -149,15 +149,11 @@ correct_commit_message() {
         fi
         
         while true; do
-            read -p "Enter correction for '$word' (or Enter to keep, 's' to skip, 'q' to quit): " correction
+            read -p "Enter correction for '$word' (or Enter to keep, 'q' to quit): " correction
             
             if [[ -z "$correction" ]]; then
                 # Keep original word
                 print_color $YELLOW "⚠️  Keeping original word: '$word'"
-                break
-            elif [[ "$correction" == "s" || "$correction" == "S" ]]; then
-                # Skip this word
-                print_color $YELLOW "⚠️  Skipped word: '$word'"
                 break
             elif [[ "$correction" == "q" || "$correction" == "Q" ]]; then
                 # Quit correction process
@@ -206,6 +202,7 @@ correct_commit_message() {
         done
     else
         print_color $YELLOW "⚠️  No changes made to the message"
+        CORRECTED_COMMIT_MSG="$original_message"
         return 0
     fi
 }
@@ -373,24 +370,6 @@ execute_commit() {
                     ;;
             esac
         fi
-
-        # echo "---------------- $CORRECTED_COMMIT_MSG"
-        # echo "---------------- $current_commit_msg"
-        # echo "---------------- $current_display_msg"
-        # if [[ -n "$CORRECTED_COMMIT_MSG" ]]; then
-        #     current_commit_msg="$CORRECTED_COMMIT_MSG"
-        #     # current_display_msg="$CORRECTED_COMMIT_MSG"
-        # else
-        #     # current_display_msg="$display_msg"
-        # fi
-        # echo "---------------- $CORRECTED_COMMIT_MSG"
-        # echo "---------------- $current_commit_msg"
-        # echo "---------------- $current_display_msg"
-        
-        # print_color $GREEN "✅ Commit message prepared:"
-        # echo "   $current_display_msg"
-        # echo
-        
         
         # Ask for final confirmation
         while true; do
