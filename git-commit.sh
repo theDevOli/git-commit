@@ -262,6 +262,7 @@ spell_check_commit_message() {
     done
     
     if [[ ${#final_misspelled[@]} -eq 0 ]]; then
+        CORRECTED_COMMIT_MSG="$message"
         return 0
     else
         while true; do
